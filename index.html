@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لعبة الترجمة التركية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F3F3;--surface:#FFFFFF;--ink:#2A1418;--mute:#7A5C62;--line:#E8D4D8;--blue:#C8102E;--teal:#0E9C9C;--red:#E30A17;--gold:#E9A820;--onblue:#FFFFFF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A0F12;--surface:#2A1A1E;--ink:#F6ECEE;--mute:#C4A9AF;--line:#4A2C33;--blue:#FF6B78;--teal:#3CC4C2;--red:#FF6B78;--onblue:#0D1822}}
+:root[data-theme="dark"]{--bg:#1A0F12;--surface:#2A1A1E;--ink:#F6ECEE;--mute:#C4A9AF;--line:#4A2C33;--blue:#FF6B78;--teal:#3CC4C2;--red:#FF6B78;--onblue:#0D1822}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Tajawal',system-ui,sans-serif;font-size:18px;line-height:1.6;min-height:100vh}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:30px;font-weight:800;margin:8px 0 4px;color:var(--blue)}
+.lead{color:var(--mute);margin:0 0 22px}
+.tr{font-family:'Bricolage Grotesque',system-ui,sans-serif;direction:ltr;unicode-bidi:isolate}
+button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:14px 18px;font-weight:700}
+button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.level{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);color:var(--ink);border:2px solid var(--line);margin-bottom:12px;text-align:right;padding:18px}
+.level:hover{border-color:var(--blue)}
+.level b{display:block;font-size:20px}
+.level span{color:var(--mute);font-weight:400;font-size:15px}
+.badge{background:var(--blue);color:var(--onblue);border-radius:999px;padding:2px 14px;font-size:15px;white-space:nowrap}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.link{background:none;color:var(--mute);padding:8px 0;font-weight:400}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:28px 20px;text-align:center}
+.say{font-size:34px;font-weight:800;line-height:1.25;color:var(--blue);margin:6px 0 20px;word-break:break-word}
+.say.long{font-size:26px}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ghost{background:transparent;color:var(--blue);border:2px solid var(--blue);display:inline-flex;align-items:center;gap:8px}
+.main{background:var(--blue);color:var(--onblue);width:100%;margin-top:18px;font-size:20px}
+.hint{color:var(--mute);font-size:15px;margin:16px 0 0}
+.ans{border-top:2px dashed var(--line);margin-top:22px;padding-top:18px}
+.ans small{color:var(--mute);display:block}
+.ans p{font-size:28px;font-weight:800;margin:2px 0 0}
+.yes{background:var(--teal);color:var(--onblue);flex:1}
+.no{background:var(--red);color:#fff;flex:1}
+.score{font-size:64px;font-weight:800;color:var(--blue);line-height:1.1;margin:8px 0}
+.note{background:var(--surface);border:2px solid var(--red);border-radius:12px;padding:10px 14px;font-size:15px;margin-bottom:14px}
+.stack button{width:100%;margin-top:10px}
+.stack .main{margin-top:10px}
+svg{width:22px;height:22px;fill:currentColor}
+:root{--tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect x='11' y='11' width='18' height='18' fill='none' stroke='%2327B5B0' stroke-width='1.6'/%3E%3Crect x='11' y='11' width='18' height='18' transform='rotate(45 20 20)' fill='none' stroke='%2327B5B0' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='2.6' fill='%23E9A820'/%3E%3Ccircle cx='0' cy='0' r='2' fill='%23E30A17'/%3E%3Ccircle cx='40' cy='0' r='2' fill='%23E30A17'/%3E%3Ccircle cx='0' cy='40' r='2' fill='%23E30A17'/%3E%3Ccircle cx='40' cy='40' r='2' fill='%23E30A17'/%3E%3C/svg%3E")}
+.hero{background-color:#163C85;background-image:linear-gradient(rgba(22,60,133,.84),rgba(22,60,133,.84)),var(--tile);border-radius:24px;padding:26px 18px 22px;text-align:center;color:#fff;margin-bottom:22px;border-bottom:7px solid var(--red)}
+.hero svg{width:68px;height:68px;display:block;margin:0 auto 8px}
+.hero h1{color:#fff;margin:2px 0 8px;font-size:30px}
+.hero p{margin:0;color:#FFE2A0;font-size:16px}
+.greet{color:var(--gold);font-size:20px;font-weight:800}
+.level{border-inline-start-width:10px}
+.card::before{content:'';display:block;height:12px;margin:-28px -20px 22px;border-radius:20px 20px 0 0;background-color:#163C85;background-image:var(--tile);background-size:24px}
+.card{border-bottom:5px solid var(--gold)}
+.bar i{background:var(--gold)}
+.main{background:#D70F1C;color:#fff}
+.score{color:var(--red)}
+:root{--tile2:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 56'%3E%3Cg fill='%23fff' fill-opacity='.2'%3E%3Cpath d='M28 36C19 34 17 24 20 16l4 6 4-9 4 9 4-6c3 8 1 18-8 20z'/%3E%3Cpath d='M26.6 36h2.8v10h-2.8z'/%3E%3Cpath d='M28 44c-5-1-8-4-9-8 4 0 8 2 9 8zm0 0c5-1 8-4 9-8-4 0-8 2-9 8z'/%3E%3C/g%3E%3Cg fill='%23FFD36B' fill-opacity='.6'%3E%3Ccircle cx='0' cy='0' r='2'/%3E%3Ccircle cx='56' cy='0' r='2'/%3E%3Ccircle cx='0' cy='56' r='2'/%3E%3Ccircle cx='56' cy='56' r='2'/%3E%3C/g%3E%3C/svg%3E")}
+.hero{background-color:#C8102E;background-image:var(--tile2);background-size:64px;border-bottom:7px solid var(--gold)}
+.hero svg{background:#fff;border-radius:50%;padding:4px}
+.hero p{color:#FFF1CF}
+.greet{color:#FFD36B}
+.card::before{height:16px;margin:-28px -20px 20px;background-color:#C8102E;background-image:var(--tile2);background-size:30px;background-position:center}
+.main{background:#0B7F7F;color:#fff}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const LEVELS=[
+{name:'المستوى الأول',sub:'كلمات سهلة',items:[
+['Çarşı','السوق الشعبي'],['Lokum','الحلقوم التركي'],['Boğaz','المضيق'],['Nazar boncuğu','خرزة العين الزرقاء'],
+['Merhaba','مرحباً'],['Teşekkürler','شكراً'],['Günaydın','صباح الخير'],['Su','ماء'],['Ekmek','خبز'],['Güzel','جميل']]},
+{name:'المستوى الثاني',sub:'كلمات وجمل قصيرة',items:[
+['Simit','السميت التركي (الكعك)'],['Çaydanlık','إبريق الشاي المزدوج'],['Kapadokya’da balonlar ünlüdür.','المناطيد مشهورة في كابادوكيا.'],
+['Nasılsınız?','كيف حالك؟'],['Bu ne kadar?','بكم هذا؟'],['Çay lütfen.','شاي من فضلك.'],['Tuvalet nerede?','أين الحمام؟'],
+['Adım Ali.','اسمي علي.'],['Türkçe öğreniyorum.','أتعلم اللغة التركية.']]},
+{name:'المستوى الثالث',sub:'جمل أعمق',items:[
+['Türkiye’de çay çok içilir.','يُشرب الشاي بكثرة في تركيا.'],['Türk kıyafetleri ve yemekleri çok çeşitlidir.','الملابس والأطعمة التركية متنوعة جداً.'],
+['Osmanlı tarihi çok uzundur.','التاريخ العثماني طويل جداً.'],['Yarın İstanbul’a gidiyorum.','غداً أذهب إلى إسطنبول.'],
+['Bu şehir çok güzel.','هذه المدينة جميلة جداً.'],['Hesabı alabilir miyim?','هل يمكنني الحصول على الفاتورة؟'],
+['Biraz yavaş konuşabilir misiniz?','هل يمكنك التحدث ببطء قليلاً؟'],['Türk kahvesini çok seviyorum.','أحب القهوة التركية كثيراً.']]}
+];
+const app=document.getElementById('app');
+let voices=[],S=null;
+function loadVoices(){try{voices=speechSynthesis.getVoices()}catch(e){voices=[]}}
+try{loadVoices();speechSynthesis.addEventListener('voiceschanged',loadVoices)}catch(e){}
+function speak(t,rate){
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='tr-TR';
+  const v=voices.find(v=>v.lang&&v.lang.toLowerCase().replace('_','-').startsWith('tr'));if(v)u.voice=v;
+  u.rate=rate||0.9;speechSynthesis.speak(u)}catch(e){}
+}
+const ICON='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function voiceNote(){
+  if(voices.length&&!voices.some(v=>v.lang&&v.lang.toLowerCase().replace('_','-').startsWith('tr')))
+    return '<div class="note">جهازك ما فيه صوت تركي مثبت، فممكن ما يطلع النطق. نزّل الصوت التركي من إعدادات الجهاز.</div>';
+  return '';
+}
+function menu(){
+  S=null;
+  app.innerHTML='<div class="hero"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#E30A17"/><circle cx="28" cy="32" r="14" fill="#fff"/><circle cx="33" cy="32" r="11.5" fill="#E30A17"/><polygon points="43,26 44.41,30.06 48.71,30.15 45.28,32.74 46.53,36.85 43,34.4 39.47,36.85 40.72,32.74 37.29,30.15 41.59,30.06" fill="#fff"/></svg><div class="tr greet">Hoş geldiniz</div><h1>تعلّم التركي بالترجمة</h1><p>اقرأ الجملة، اسمع نطقها، ترجمها في بالك، وبعدين شوف الترجمة.</p></div>'+voiceNote()+
+  LEVELS.map((l,i)=>'<button class="level" style="border-inline-start-color:'+['var(--teal)','var(--gold)','var(--red)'][i]+'" data-l="'+i+'"><div><b>'+l.name+'</b><span>'+l.sub+'</span></div><span class="badge">'+l.items.length+' جمل</span></button>').join('');
+  app.querySelectorAll('.level').forEach(b=>b.onclick=()=>start(+b.dataset.l));
+}
+function start(li,list){
+  const items=list||shuffle(LEVELS[li].items);
+  S={li,items,i:0,shown:false,right:0,missed:[]};play();
+}
+function play(){
+  const it=S.items[S.i],t=it[0],n=S.items.length;
+  app.innerHTML='<div class="top"><button class="link" id="back">القائمة</button><span>'+LEVELS[S.li].name+'</span><span>'+(S.i+1)+' / '+n+'</span></div>'+
+  '<div class="bar"><i style="width:'+(S.i/n*100)+'%"></i></div>'+
+  '<div class="card"><div class="say tr'+(t.length>22?' long':'')+'" lang="tr">'+esc(t)+'</div>'+
+  '<div class="row"><button class="ghost" id="l1">'+ICON+'استمع</button><button class="ghost" id="l2">'+ICON+'ببطء</button></div>'+
+  (S.shown?'<div class="ans"><small>الترجمة</small><p>'+esc(it[1])+'</p></div>':'<p class="hint">ترجمها في بالك أول، وبعدين اضغط الزر.</p>')+
+  '</div>'+
+  (S.shown?'<div class="row" style="margin-top:16px"><button class="no" id="no">ما عرفتها</button><button class="yes" id="yes">عرفتها</button></div>':'<button class="main" id="show">أظهر الترجمة</button>');
+  document.getElementById('back').onclick=menu;
+  document.getElementById('l1').onclick=()=>speak(t,.9);
+  document.getElementById('l2').onclick=()=>speak(t,.5);
+  if(S.shown){document.getElementById('yes').onclick=()=>next(true);document.getElementById('no').onclick=()=>next(false)}
+  else document.getElementById('show').onclick=()=>{S.shown=true;play();speak(t,.85)};
+}
+function next(ok){
+  if(ok)S.right++;else S.missed.push(S.items[S.i]);
+  S.i++;S.shown=false;
+  if(S.i>=S.items.length)done();else play();
+}
+function done(){
+  const n=S.items.length,r=S.right,p=r/n;
+  const msg=p===1?'ممتاز! عرفتها كلها.':p>=.7?'حلو! أنت ماشي صح.':p>=.4?'مو بطال، كرر وبتتحسن.':'ولا يهمك، المراجعة تثبّت الكلمات.';
+  app.innerHTML='<div class="card"><p class="lead" style="margin:0">'+LEVELS[S.li].name+'</p><div class="score">'+r+' / '+n+'</div><p style="margin:0">'+msg+'</p></div>'+
+  '<div class="stack">'+(S.missed.length?'<button class="main" id="rev">راجع اللي ما عرفتها ('+S.missed.length+')</button>':'')+
+  '<button class="ghost" id="again">العب المستوى من جديد</button>'+
+  (S.li<LEVELS.length-1?'<button class="ghost" id="nxt">المستوى التالي</button>':'')+
+  '<button class="link" id="home">القائمة الرئيسية</button></div>';
+  const li=S.li,missed=S.missed.slice();
+  if(missed.length)document.getElementById('rev').onclick=()=>start(li,shuffle(missed));
+  document.getElementById('again').onclick=()=>start(li);
+  if(li<LEVELS.length-1)document.getElementById('nxt').onclick=()=>start(li+1);
+  document.getElementById('home').onclick=menu;
+}
+menu();
+</script>
+</body>
+</html>
